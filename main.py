@@ -27,11 +27,15 @@ class Main():
         args = self.argp()
         self._template_path = args.template_path
         self._layout_path = args.layout_path
-        self._output = sys.argv[len(sys.argv)]
+        self._output = args.output
+        self._a4_compatible_mode = args.a4_native
 
-        self.layout = PaperLayout("naga_3go.json")
-        self.to = TemplateTo("template.json")
-        self._a4_compatible_mode = False
+        if self._output in (self._template_path, self._layout_path):
+            raise ValueError(
+                "You cannot specify the same output as the input file")
+
+        self.layout = PaperLayout(self._layout_path)
+        self.to = TemplateTo(self._template_path)
 
         pass
 
@@ -39,6 +43,8 @@ class Main():
         parser = argparse.ArgumentParser()
         parser.add_argument("-t", dest="template_path", required=True)
         parser.add_argument("-p", dest="layout_path", required=True)
+        parser.add_argument("-o", dest="output", required=True)
+        parser.add_argument("--a4", dest="a4_native", action="store_true")
 
         return parser.parse_args()
 
@@ -46,7 +52,7 @@ class Main():
         pdfmetrics.registerFont(TTFont("GOTHIC", FONT_GOTHIC))
         pdfmetrics.registerFont(TTFont("MINCHO", FONT_MINCHO))
 
-        output_path = "./output.pdf"
+        output_path = self._output
 
         m = metric.Metric(DPI)
 

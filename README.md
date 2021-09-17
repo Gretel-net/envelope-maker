@@ -5,14 +5,18 @@ JSON テンプレートから封筒に宛名とかの PDF 作るやつ
 ## Usage
 
 ```shell
-$ ./main.py -t [TEMPLATE_PATH] -p [LAYOUT_PATH] <OUTPUT>
+$ ./main.py -t [TEMPLATE_PATH] -p [LAYOUT_PATH] -o [OUTPUT] --a4
 ```
 
-`TEMPLATE_PATH`: 宛先
-`LAYOUT_PATH`: 封筒のレイアウト
+`-t`: 宛先 JSON
+`-p`: 封筒レイアウト JSON
+`-o`: 出力先
+`--a4` A4 互換モード(option)
 
 宛名のサンプル: template.json
 長形 3 号のサンプル: naga_3go.json
+
+サイズ･位置パラメータは `mm` ミリメートル単位
 
 ## 上手く動かなかったらすまん
 
