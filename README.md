@@ -8,6 +8,15 @@ JSON テンプレートから封筒に宛名とかの PDF 作るやつ
 $ ./main.py -t [TEMPLATE_PATH] -p [LAYOUT_PATH] -o [OUTPUT] --a4
 ```
 
+```shell
+# Using docker
+$ docker build -t envelope-maker .
+$ docker run \
+-v $PWD/dist:/var/dist \
+envelope-maker \
+./main.py -t ./template/template.json -p ./layout/naga_3go.json -o /var/dist/sample.pdf --a4
+```
+
 `-t`: 宛先 JSON
 `-p`: 封筒レイアウト JSON
 `-o`: 出力先
